@@ -122,3 +122,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+import dj_database_url
+
+# Replace DEBUG = True with:
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Allow all hosts for testing; later restrict to your domain
+ALLOWED_HOSTS = ['*']
+
+# Static files setup
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Enable WhiteNoise
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+# Optional: use dj_database_url if you switch to PostgreSQL later
+if os.getenv("DATABASE_URL"):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
