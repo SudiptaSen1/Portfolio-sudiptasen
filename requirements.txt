@@ -1,0 +1,13 @@
+python manage.py collectstatic --noinput
+python manage.py migrate --noinput
+python manage.py loaddata initial_data.json
+python manage.py runserver
+Django>=5.1.6
+Django>=5.1.6
+gunicorn
+whitenoise
+psycopg2-binary
+djangorestframework
+django-cors-headers
+django-environ
+django-filter
